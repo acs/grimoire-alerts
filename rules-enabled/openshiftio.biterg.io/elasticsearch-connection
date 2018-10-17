@@ -1,0 +1,7 @@
+# Connection data for the Elasticsearch with the data to track with alerts
+es_host: openshiftio.biterg.io
+es_port: 443
+es_url_prefix: data
+use_ssl: True
+# es_username:
+# es_password:

@@ -69,6 +69,12 @@ acs@~/devel/grimoirelab-alerts (venv) $ vi  rules-enabled/openshiftio.biterg.io/
 
 Remember than you must change the rule name so it is unique across all ElastAlert execution.
 
+## Creating the alerts for a deployment based on mordred
+
+An script called `m2a.py` will do automatically the deployment in mordred based
+configuration. Using the mordred config file, all the data sources active will be
+found and all the alerts for them will be created automatically.
+
 
 ## Testing the rules
 

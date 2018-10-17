@@ -25,8 +25,8 @@ num_events: 1
 # (Required, frequency specific)
 # num_events must occur within this amount of time to trigger an alert
 timeframe:
-#  hours: 1 
-  days: 1 
+#  hours: 1
+  days: 1
 
 # (Required)
 # A list of Elasticsearch filters used for find events
@@ -35,7 +35,7 @@ timeframe:
 # filter:
 # - term:
 #     some_field: "some_value"
-filter: 
+filter:
 - term:
     question_has_accepted_answer: 0
 

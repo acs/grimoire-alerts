@@ -26,15 +26,15 @@ You need to adapt it to your own deployment [following the doc](https://elastale
 
 The alerts are defined [using a rule file](https://elastalert.readthedocs.io/en/latest/running_elastalert.html#creating-a-rule).
 
-grimoire-alerts already includes a library of [precreated rules files](rules-available) that
-are the ones that should be used. Adding new rules is easy and can be proposed with pull requests.
+grimoire-alerts already includes a library of [precreated template rules files](rules-available) that
+are the ones that should be used. Adding new template rules is easy and can be proposed with pull requests.
 
 Right now only [frequencies alerts exist](https://elastalert.readthedocs.io/en/latest/ruletypes.html#frequency). In them, the key is to define the index from
 which to get the data, and the [filter](https://github.com/acs/grimoirelab-alerts/blob/master/rules-available/stackexchange-no-answers.yaml#L40) to track the items (for example the question without answers).
 
 ### Design of reusable rules (alerts)
 
-In order to reuse the same rules in different deployments, at the top of the rule file is included:
+In order to reuse the templates rules in different deployments, at the top of the rule file is included:
 
 ```
 # Include the connection data
@@ -44,6 +44,9 @@ import: "elasticsearch-connection"
 
 You need to create this `elasticsearch-connection` in each deployment with the correct Elasticsearch connection data for this deployment.
 
+To deploy a rule for a specific environment you just need to copy the template rule file
+and change the name of the rule. Rule names must be unique inside a ElastAlert execution.
+
 ## Creating the alerts for a deployment
 
 For creating a new deployment with the commits alert active:
@@ -51,7 +54,8 @@ For creating a new deployment with the commits alert active:
 ```
 acs@~/devel/grimoirelab-alerts (venv) $ mkdir -p rules-enabled/bitergia.biterg.io/
 acs@~/devel/grimoirelab-alerts (venv) $ vi rules-enabled/bitergia.biterg.io/elasticsearch-connection
-acs@~/devel/grimoirelab-alerts (venv) $ cd rules-enabled/bitergia.biterg.io/ && ln -s ../../rules-available/commits.yaml . && cd ../..
+acs@~/devel/grimoirelab-alerts (venv) $ cp rules-available/commits.yaml rules-enabled/bitergia.biterg.io/
+acs@~/devel/grimoirelab-alerts (venv) $ vi rules-enabled/bitergia.biterg.io/commits.yaml
 ```
 
 To create a second one with alerts for tracking answers in stackexchange:
@@ -59,8 +63,12 @@ To create a second one with alerts for tracking answers in stackexchange:
 ```
 acs@~/devel/grimoirelab-alerts (venv) $ mkdir -p rules-enabled/openshiftio.biterg.io/
 acs@~/devel/grimoirelab-alerts (venv) $ vi rules-enabled/openshiftio.biterg.io/elasticsearch-connection
-acs@~/devel/grimoirelab-alerts (venv) $ cd rules-enabled/openshiftio.biterg.io/ && ln -s ../../rules-available/stackexchange-no-answers.yaml . &&
+acs@~/devel/grimoirelab-alerts (venv) $ cp rules-available/stackexchange-no-answers.yaml rules-enabled/openshiftio.biterg.io/
+acs@~/devel/grimoirelab-alerts (venv) $ vi  rules-enabled/openshiftio.biterg.io/stackexchange-no-answers.yaml
 ```
+
+Remember than you must change the rule name so it is unique across all ElastAlert execution.
+
 
 ## Testing the rules
 

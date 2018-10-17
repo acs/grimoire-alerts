@@ -47,6 +47,8 @@ You need to create this `elasticsearch-connection` in each deployment with the c
 To deploy a rule for a specific environment you just need to copy the template rule file
 and change the name of the rule. Rule names must be unique inside a ElastAlert execution.
 
+The names of the template rules files follow the schema: `datasource-name_of_metric.yaml`. For example `git-commits.yaml`.
+
 ## Creating the alerts for a deployment
 
 For creating a new deployment with the commits alert active:
@@ -54,8 +56,8 @@ For creating a new deployment with the commits alert active:
 ```
 acs@~/devel/grimoirelab-alerts (venv) $ mkdir -p rules-enabled/bitergia.biterg.io/
 acs@~/devel/grimoirelab-alerts (venv) $ vi rules-enabled/bitergia.biterg.io/elasticsearch-connection
-acs@~/devel/grimoirelab-alerts (venv) $ cp rules-available/commits.yaml rules-enabled/bitergia.biterg.io/
-acs@~/devel/grimoirelab-alerts (venv) $ vi rules-enabled/bitergia.biterg.io/commits.yaml
+acs@~/devel/grimoirelab-alerts (venv) $ cp rules-available/git-commits.yaml rules-enabled/bitergia.biterg.io/
+acs@~/devel/grimoirelab-alerts (venv) $ vi rules-enabled/bitergia.biterg.io/git-commits.yaml
 ```
 
 To create a second one with alerts for tracking answers in stackexchange:
@@ -83,7 +85,7 @@ the connection data in the file `elasticsearch-connection`. Once you have done i
 you can check that the connection and the alert is working with:
 
 ```
-acs@~/devel/grimoirelab-alerts (venv) $ elastalert-test-rule rules-enabled/bitergia.biterg.io/commits.yaml
+acs@~/devel/grimoirelab-alerts (venv) $ elastalert-test-rule rules-enabled/bitergia.biterg.io/git-commits.yaml
 ....
 Would have written the following documents to writeback index (default is elastalert_status):
 
